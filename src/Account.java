@@ -1,4 +1,6 @@
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
     String id;
     String password;
     double money;
@@ -28,6 +30,11 @@ public class Account {
 
     //存钱
     public void keep(double keepMoney){
-
+        if(keepMoney<=0){
+            System.out.println("存款金额要大于0");
+        }else{
+            money += keepMoney;
+            System.out.println("存款成功，余额："+money);
+        }
     }
 }

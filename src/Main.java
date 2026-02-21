@@ -9,8 +9,8 @@ public class Main {
         int i=3;
         while(true){
             System.out.println("======银行账户管理系统======");
-            System.out.println("1.开户   2.查询账户   3.存款");
-            System.out.println("4.取款   5.展示账户   6.退出");
+            System.out.println("1.开户   2.查询账户   3.取款");
+            System.out.println("4.存款   5.展示账户   6.退出");
             int choice = sc.nextInt();
             sc.nextLine();
             switch(choice){
@@ -67,12 +67,25 @@ public class Main {
                     System.out.println("请输入密码：");
                     if(d.password.compareTo(sc.nextLine())==0){
                         System.out.println("取款：");
-
+                        d.withdrew(sc.nextInt());
                     }else{
                         System.out.println("密码错误");
                     }
                     break;
                 case 4:
+                    System.out.println("账号：");
+                    Account b = tree.search(sc.nextLine());
+                    if(b == null){
+                        System.out.println("账号不存在");
+                        break;
+                    }
+                    System.out.println("密码：");
+                    if(b.password.compareTo(sc.nextLine())==0){
+                        System.out.println("存款金额：");
+                        b.keep(sc.nextInt());
+                    }else {
+                        System.out.println("密码错误：");
+                    }
                     break;
                 case 5:
                     break;

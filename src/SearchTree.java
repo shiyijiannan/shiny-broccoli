@@ -4,8 +4,7 @@ import java.util.Scanner;
 public class SearchTree implements Serializable {
     private TreeNode root;
     private static final String FILE = "bankdata.dat";
-    int i=3;
-    Scanner sc = new Scanner(System.in);
+
     public SearchTree(){
         root = null;
     }//初始化

@@ -1,16 +1,16 @@
 import com.sun.source.tree.BinaryTree;
 import java.io.*;
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
         SearchTree tree = SearchTree.loadFromFile();//读取文件
         int i=3;
+        int if_log=0;
         while(true){
             System.out.println("======银行账户管理系统======");
-            System.out.println("1.开户   2.查询账户   3.取款");
-            System.out.println("4.存款   5.展示账户   6.退出");
+            System.out.println("1.开户   2.查询账户    3.取款");
+            System.out.println("4.存款   5.管理员登录   6.退出");
             int choice = sc.nextInt();
             sc.nextLine();
             switch(choice){
@@ -56,7 +56,7 @@ public class Main {
                         }else{
                             System.out.println("账号不存在");
                         }
-                    break;
+                        break;
                 case 3:
                     System.out.println("账号：");
                     Account d = tree.search(sc.nextLine());
@@ -88,6 +88,47 @@ public class Main {
                     }
                     break;
                 case 5:
+                    manage M = new manage();
+                    System.out.println("===管理员登录===");
+                    System.out.println("请输入管理员姓名：");
+                    if(M.manageName.compareTo(sc.nextLine())==0){
+                        System.out.println("请输入登录密码：");
+                        if(M.managePassword.compareTo(sc.nextLine())==0){
+                            if_log=1;
+                            while(if_log==1) {
+                                System.out.println("管理员菜单");
+                                System.out.println("1.展示账户   2.删除   3.修改");
+                                System.out.println("4.操作日志   5.退出");
+                                System.out.println("请选择：");
+                                switch (sc.nextInt()) {
+                                    case 1:
+                                        tree.showAccount();
+                                        break;
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        tree.inOrder();
+                                        System.out.println("请选择要修改密码的账号：");
+                                        Account temp = tree.search(sc.nextLine());
+                                        if(temp==null){
+                                            System.out.println("暂无该账号");
+                                        }else{
+
+                                        }
+                                        break;
+                                    case 4:
+                                        break;
+                                    case 5:
+                                        if_log=0;
+                                        break;
+                                }
+                            }
+                        }else{
+                            System.out.println("密码错误");
+                        }
+                    }else{
+                        System.out.println("管理员姓名错误");
+                    }
                     break;
                 case 6:
                     tree.saveData();

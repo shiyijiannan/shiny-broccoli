@@ -1,5 +1,5 @@
 import java.io.*;
-import java.util.Scanner;
+import java.util.*;
 
 public class SearchTree implements Serializable {
     private TreeNode root;
@@ -69,6 +69,7 @@ public class SearchTree implements Serializable {
     }
 
     public void inOrder() {
+        System.out.println("====所有账户信息====");
         inOrderRec(root);
     }
 
@@ -76,7 +77,43 @@ public class SearchTree implements Serializable {
         if (root != null) {
             inOrderRec(root.left);
             root.account.show();
+            System.out.println("-----------------");
             inOrderRec(root.right);
+        }
+    }
+
+    private void lineAccount(TreeNode root, List<Account> accountList){//将二叉树拷贝到列表
+        if(root != null){
+            lineAccount(root.left, accountList);
+            accountList.add(root.account);
+            lineAccount(root.right,accountList);
+        }
+    }
+
+    public void showAccount() {
+        List<Account> accountList = new ArrayList<>();
+        lineAccount(root, accountList);
+
+        if (accountList.isEmpty()) {
+            System.out.println("暂无账户信息！");
+            return;
+        }
+
+        // 按余额降序排序
+        Collections.sort(accountList, new Comparator<Account>() {
+            @Override
+            public int compare(Account a1, Account a2) {
+                // 降序排列：a2的余额 - a1的余额
+                return Double.compare(a2.money, a1.money);
+            }
+        });
+
+        // 展示排序后的账户
+        System.out.println("====所有账户信息（按余额从高到低）====");
+        for (int i = 0; i < accountList.size(); i++) {
+            System.out.println("排名" + (i + 1) + "：");
+            accountList.get(i).show();
+            System.out.println("-----------------");
         }
     }
 }
